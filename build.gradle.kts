@@ -8,11 +8,11 @@ version = "1.0.0-SNAPSHOT"
 
 application {
     // Updated main class to the project package
-    mainClass.set("pro.udeedit.demo.simplegpstracker.server.ApplicationKt")
+    mainClass.set("pro.udeedit.demo.simplegpstracker.server.MainKt") // ApplicationKt
 }
 
 kotlin {
-    jvmToolchain(17) // Update to JDK 17 for better compatibility // 21
+    jvmToolchain(21) // Update to JDK 17 for better compatibility // 17
 }
 
 dependencies {
