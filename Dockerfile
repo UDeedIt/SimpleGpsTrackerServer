@@ -1,25 +1,22 @@
-Use the official Gradle image with JDK 21 as the build environment.
+# Build stage: use Gradle with JDK 21
 FROM gradle:8.8-jdk21 AS build
 WORKDIR /app
 
-Copy the project’s Gradle wrapper and build files.
-COPY gradlew gradlew.bat ./
-COPY gradle gradle
-
-Copy the rest of the project files.
+# Copy all project files into the image
 COPY . .
 
-Build a fat JAR (you should use Shadow if available; if not, adjust accordingly).
-If your project is set up for shadowJar, use this:
+# Build a fat JAR with Shadow (make sure the project has shadowJar configured)
 RUN ./gradlew shadowJar --no-daemon
 
-Use a smaller runtime image.
+# Runtime stage: smaller JRE image
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 
-Copy the fat JAR from the build stage.
-Adjust the JAR name if needed; for example, if your jar name is "SimpleGpsTrackerServer-all.jar"
+# Copy the fat JAR from the build stage
 COPY --from=build /app/build/libs/*-all.jar app.jar
 
-Expose the port that Cloud Run will use (default 8080)
-EXPOSE 8080 ENV PORT=8080 ENTRYPOINT ["java", "-jar", "app.jar"]
+# Cloud Run / container port
+EXPOSE 8080
+ENV PORT=8080
+
+ENTRYPOINT ["java", "-jar", "app.jar"]

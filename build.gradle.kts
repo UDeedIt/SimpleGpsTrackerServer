@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.kotlin.jvm)
     alias(ktorLibs.plugins.ktor)
+    id("org.jetbrains.kotlin.plugin.serialization") version "2.4.0"
+//    id("org.jetbrains.kotlin.plugin.serialization") version libs.versions.kotlin.get() // or hardcode the same Kotlin version
 }
 
 group = "pro.udeedit.demo.simplegpstracker"  // Updated group name
@@ -20,6 +22,9 @@ dependencies {
     implementation(ktorLibs.server.core)
     implementation(ktorLibs.server.netty)
     implementation(libs.logback.classic)
+
+    implementation(ktorLibs.server.contentNegotiation)
+    implementation(ktorLibs.serialization.kotlinx.json)
 
     testImplementation(kotlin("test"))
     testImplementation(ktorLibs.server.testHost)
