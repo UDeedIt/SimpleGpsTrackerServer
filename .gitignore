@@ -35,3 +35,13 @@ out/
 
 # Generated files (e.g., for Shadow or Test reports)
 shadowJar/
+
+# Gradle / tool lock files in project root
+buildOutputCleanup.lock
+checksums.lock
+executionHistory.lock
+fileHashes.lock
+
+# IDE config in project root (if present)
+compiler.xml
+misc.xml
