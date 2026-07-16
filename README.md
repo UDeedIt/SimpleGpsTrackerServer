@@ -37,12 +37,13 @@ The project is designed as a portfolio-quality example of a modern Kotlin server
 
 Endpoint
 
-text
+```text
 POST {BASE_URL}/api/v1/locations §
+```
 
 Body (LocationPayload)
 
-json
+```json
 {
 "deviceId": "330be5e7-bef9-47f8-aeb3-5823aac7e6b2",
 "userName": "SargiusPro",
@@ -51,6 +52,7 @@ json
 "accuracyMeters": 8.3,
 "timestampMillis": 1783347145469
 }
+```
 
 - deviceId: stable user/device ID (UUID)
 - userName: optional user-friendly name
@@ -62,11 +64,12 @@ json
 
 Body (LocationResponse)
 
-json
+```json
 {
 "status": "ok",
 "message": "Location received"
 }
+```
 
 The Android app logs the HTTP status and full JSON body for each request.
 
@@ -77,42 +80,48 @@ The Android app logs the HTTP status and full JSON body for each request.
 1. Clone the repository and open in IntelliJ IDEA.
 2. Run the server:
 
-   bash
-   ./gradlew run
+```bash
+  ./gradlew run
+```
 
 3. Test the endpoint:
 
-   bash
+```bash
    curl -X POST http://localhost:8080/api/v1/locations \
    -H "Content-Type: application/json" \
    -d '{
-   "deviceId": "test-device",
-   "userName": "Test User",
-   "latitude": 55.75,
-   "longitude": 37.62,
-   "accuracyMeters": 10.5,
-   "timestampMillis": 1730180234123
-   }'
+        "deviceId": "test-device",
+        "userName": "Test User",
+        "latitude": 55.75,
+        "longitude": 37.62,
+        "accuracyMeters": 10.5,
+        "timestampMillis": 1730180234123
+      }'
+```
 
 You should receive:
 
-json
-{"status":"ok","message":"Location received"}
-
+```json
+{
+  "status":"ok",
+  "message":"Location received"
+}
+```
 ---
 
 ## Docker & Cloud Run (example)
 
 Build and tag image:
 
-bash
+```bash
 docker build -t simplegpsserver .
 docker tag simplegpsserver \
 us-central1-docker.pkg.dev/<PROJECT_ID>/gps-tracker-repo/simplegpsserver
+```
 
 Push and deploy:
 
-bash
+```bash
 docker push \
 us-central1-docker.pkg.dev/<PROJECT_ID>/gps-tracker-repo/simplegpsserver
 
@@ -122,13 +131,13 @@ gcloud run deploy simplegpsserver \
 --region us-central1 \
 --allow-unauthenticated \
 --port 8080
-
-
+```
 
 Your public base URL will look like:
 
-text
+```text
 https://simplegpsserver-xxxxxxxxxx-uc.a.run.app
+```
 
 The Android app should use this as its base URL (and will POST to /api/v1/locations).
 
